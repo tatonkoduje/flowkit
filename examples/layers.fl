@@ -1,0 +1,23 @@
+# FlowLite — groups showcase (change 0004)
+# compile: PYTHONPATH=src python3 -m flowlite examples/layers.fl -o docs/img/layers.svg --png
+#
+# translucent group frames containing member nodes; an edge can target a group.
+
+title "Layers" "services grouped into frames"
+theme midnight
+
+group clients "Clients" kind=web
+node web  "Web app"  kind=web     in=clients
+node mob  "Mobile app" kind=mobile in=clients
+
+group core "Core services" kind=service
+node gw   "API Gateway" kind=gateway in=core
+node slip "Betslip"     kind=service in=core
+node offer "Offer"      kind=service in=core
+
+group data "Data" kind=store
+node pg   "PostgreSQL" kind=store shape=db in=data
+node cass "Cassandra"  kind=store shape=db in=data
+
+edge clients -> core "requests"
+edge core -> data "persist" style=dashed

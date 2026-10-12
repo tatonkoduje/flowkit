@@ -1,0 +1,25 @@
+# FlowLite — auto-layout showcase (change 0011)
+# compile: PYTHONPATH=src python3 -m flowlite examples/auto.fl -o docs/img/auto.svg --png
+#
+# `layout auto` derives the columns from the EDGES — no hand-written `layer`
+# lines. Edges flow left-to-right: clients -> gateway -> services -> data.
+
+title "Auto layout" "columns derived from edges — change 0011"
+theme midnight
+
+layout auto
+
+node web  "Web app"    kind=web      icon=globe
+node mob  "Mobile app" kind=mobile   icon=globe
+node gw   "API Gateway" kind=gateway  icon=network
+node slip "Betslip"    kind=service  icon=box
+node offer "Offer"     kind=service  icon=box
+node pg   "PostgreSQL" kind=store    shape=db icon=database
+node cass "Cassandra"  kind=store    shape=db icon=database
+
+edge web -> gw "HTTPS"
+edge mob -> gw "HTTPS"
+edge gw -> slip "bets"
+edge gw -> offer "odds"
+edge slip -> pg "persist"
+edge offer -> cass "persist"

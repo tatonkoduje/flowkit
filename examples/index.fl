@@ -1,0 +1,28 @@
+# FlowLite — an index of the examples (change 0009)
+# Each node is a hyperlink. `link=` makes the whole shape + label clickable in
+# any SVG viewer, so this diagram is a navigable table of contents.
+#
+# Targets are the rendered gallery SVGs (in this same docs/img/ directory), so a
+# click opens a picture — not the raw .fl source.
+
+title "FlowLite examples" "every node links to its rendered diagram — change 0009"
+theme midnight
+
+node hello    "Hello"        kind=web      icon=box       link=hello.svg
+node shapes   "Shapes"       kind=app      icon=layers    link=shapes.svg
+node flow     "Edge styling" kind=consumer icon=activity  link=flow.svg
+node layers   "Groups"       kind=service  icon=box       link=layers.svg
+node pipeline "Layered"      kind=service  icon=network   link=pipeline.svg
+node hub      "Radial"       kind=gateway  icon=zap       link=hub.svg
+node schema   "Tables"       kind=store    icon=database  link=schema.svg
+node auto     "Auto layout"  kind=app      icon=git-branch link=auto.svg
+node kitchen  "Full tour"    kind=queue    icon=cpu       link=kitchen-sink.svg
+
+edge hello -> shapes
+edge shapes -> flow
+edge flow -> layers
+edge layers -> pipeline
+edge pipeline -> hub
+edge hub -> schema
+edge schema -> auto
+edge auto -> kitchen

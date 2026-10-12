@@ -1,0 +1,32 @@
+{
+  "name": "light",
+  "background": { "from": "#F8FAFC", "to": "#E9EEF5" },
+  "title": "#0F172A",
+  "subtitle": "#64748B",
+  "edge": "#475569",
+  "labelBackground": "#FFFFFF",
+  "labelText": "#334155",
+  "watermark": "#CBD5E1",
+  "palette": {
+    "source":   ["#3B82F6", "#1D4ED8"],
+    "queue":    ["#F59E0B", "#D97706"],
+    "service":  ["#10B981", "#059669"],
+    "store":    ["#8B5CF6", "#7C3AED"],
+    "consumer": ["#EC4899", "#DB2777"],
+    "gateway":  ["#64748B", "#475569"],
+    "app":      ["#818CF8", "#4F46E5"],
+    "web":      ["#22D3EE", "#0891B2"],
+    "mobile":   ["#2DD4BF", "#0D9488"],
+    "tablet":   ["#E879F9", "#C026D3"],
+    "default":  ["#64748B", "#475569"]
+  },
+  "tokens": {
+    "charWidth": 8.4,
+    "nodeHeight": 64,
+    "padX": 26,
+    "rowGap": 30,
+    "top": 130,
+    "margin": 70,
+    "fontFamily": "-apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, Roboto, sans-serif"
+  }
+}

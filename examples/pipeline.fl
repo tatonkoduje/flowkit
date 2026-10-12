@@ -1,0 +1,27 @@
+# FlowLite — layered layout showcase (change 0005)
+# compile: PYTHONPATH=src python3 -m flowlite examples/pipeline.fl -o docs/img/pipeline.svg --png
+#
+# `layer <n>: ids` assigns top-level items to ordered columns (left-to-right).
+# ids not listed in any layer fall into a trailing column.
+
+title "Pipeline" "clients to services to data"
+
+layer 1: web mob
+layer 2: gw
+layer 3: slip offer
+layer 4: pg cass
+
+node web  "Web app"    kind=web
+node mob  "Mobile app" kind=mobile
+node gw   "API Gateway" kind=gateway
+node slip "Betslip"    kind=service
+node offer "Offer"     kind=service
+node pg   "PostgreSQL" kind=store shape=db
+node cass "Cassandra"  kind=store shape=db
+
+edge web -> gw "HTTPS"
+edge mob -> gw "HTTPS"
+edge gw -> slip "bets"
+edge gw -> offer "odds"
+edge slip -> pg "persist"
+edge offer -> cass "persist"

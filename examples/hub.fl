@@ -1,0 +1,19 @@
+title "Event bus" "A hexagon hub with docked producers and consumers"
+
+radial hub=bus radius=300 start=-90 dock
+
+node bus "EVENT BUS" shape=hex kind=gateway icon=network
+
+node web "Web app" kind=web icon=globe
+node mob "Mobile" kind=mobile icon=globe
+node svc "Orders" kind=service icon=shopping-cart
+node inv "Inventory" kind=service icon=box
+node ana "Analytics" kind=store icon=activity
+node aud "Audit log" kind=queue icon=message-square
+
+edge web -> bus "publish"
+edge mob -> bus "publish"
+edge bus -> svc "orders"
+edge bus -> inv "reserve"
+edge bus -> ana "events"
+edge bus -> aud "events"

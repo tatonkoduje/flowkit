@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="292" height="1016" viewBox="0 0 292 1016" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, Roboto, sans-serif">
+<defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0B1220"/><stop offset="1" stop-color="#131F38"/></linearGradient><linearGradient id="g-app" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#818CF8"/><stop offset="1" stop-color="#4F46E5"/></linearGradient><linearGradient id="g-consumer" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#EC4899"/><stop offset="1" stop-color="#DB2777"/></linearGradient><linearGradient id="g-default" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#64748B"/><stop offset="1" stop-color="#475569"/></linearGradient><linearGradient id="g-gateway" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#64748B"/><stop offset="1" stop-color="#475569"/></linearGradient><linearGradient id="g-mobile" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2DD4BF"/><stop offset="1" stop-color="#0D9488"/></linearGradient><linearGradient id="g-queue" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F59E0B"/><stop offset="1" stop-color="#D97706"/></linearGradient><linearGradient id="g-service" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#10B981"/><stop offset="1" stop-color="#059669"/></linearGradient><linearGradient id="g-source" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3B82F6"/><stop offset="1" stop-color="#1D4ED8"/></linearGradient><linearGradient id="g-store" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8B5CF6"/><stop offset="1" stop-color="#7C3AED"/></linearGradient><linearGradient id="g-tablet" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#E879F9"/><stop offset="1" stop-color="#C026D3"/></linearGradient><linearGradient id="g-web" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#22D3EE"/><stop offset="1" stop-color="#0891B2"/></linearGradient><filter id="cardShadow" x="-30%%" y="-30%%" width="160%%" height="160%%"><feDropShadow dx="0" dy="5" stdDeviation="7" flood-color="#000000" flood-opacity="0.35"/></filter><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#7DD3FC"/></marker><marker id="arrow-dot" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5"><circle cx="5" cy="5" r="4" fill="#7DD3FC"/></marker></defs>
+<rect width="292" height="1016" fill="url(#bg)"/>
+<text x="70" y="58" font-size="26" font-weight="700" fill="#F8FAFC">FlowLite examples</text><text x="70" y="86" font-size="14" fill="#94A3B8">every node links to its rendered diagram — change 0009</text>
+<path d="M 146.4 194.0 C 146.4 224.0, 146.4 194.0, 146.4 224.0" fill="none" stroke="#7DD3FC" stroke-width="2.2" stroke-opacity="0.85" marker-end="url(#arrow)"/>
+<path d="M 146.4 288.0 C 146.4 318.0, 146.4 288.0, 146.4 318.0" fill="none" stroke="#7DD3FC" stroke-width="2.2" stroke-opacity="0.85" marker-end="url(#arrow)"/>
+<path d="M 146.4 382.0 C 146.4 412.0, 146.4 382.0, 146.4 412.0" fill="none" stroke="#7DD3FC" stroke-width="2.2" stroke-opacity="0.85" marker-end="url(#arrow)"/>
+<path d="M 146.4 476.0 C 146.4 506.0, 146.4 476.0, 146.4 506.0" fill="none" stroke="#7DD3FC" stroke-width="2.2" stroke-opacity="0.85" marker-end="url(#arrow)"/>
+<path d="M 146.4 570.0 C 146.4 600.0, 146.4 570.0, 146.4 600.0" fill="none" stroke="#7DD3FC" stroke-width="2.2" stroke-opacity="0.85" marker-end="url(#arrow)"/>
+<path d="M 146.4 664.0 C 146.4 694.0, 146.4 664.0, 146.4 694.0" fill="none" stroke="#7DD3FC" stroke-width="2.2" stroke-opacity="0.85" marker-end="url(#arrow)"/>
+<path d="M 146.4 758.0 C 146.4 788.0, 146.4 758.0, 146.4 788.0" fill="none" stroke="#7DD3FC" stroke-width="2.2" stroke-opacity="0.85" marker-end="url(#arrow)"/>
+<path d="M 146.4 852.0 C 146.4 882.0, 146.4 852.0, 146.4 882.0" fill="none" stroke="#7DD3FC" stroke-width="2.2" stroke-opacity="0.85" marker-end="url(#arrow)"/>
+<a href="hello.svg" target="_blank" rel="noopener noreferrer">
+<g filter="url(#cardShadow)"><rect x="71.4" y="130.0" width="150.0" height="64.0" rx="14" fill="url(#g-web)" stroke="#FFFFFF" stroke-opacity="0.18" stroke-width="1"/></g>
+<g transform="translate(87.4 151.0) scale(0.9167)" fill="none" stroke="#FFFFFF" stroke-opacity="0.92" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8 12 3 3 8v8l9 5 9-5zM3 8l9 5 9-5M12 13v8"/></g>
+<text x="157.4" y="167.5" text-anchor="middle" font-size="15.0" font-weight="600" fill="#FFFFFF">Hello</text>
+</a>
+<a href="shapes.svg" target="_blank" rel="noopener noreferrer">
+<g filter="url(#cardShadow)"><rect x="71.4" y="224.0" width="150.0" height="64.0" rx="14" fill="url(#g-app)" stroke="#FFFFFF" stroke-opacity="0.18" stroke-width="1"/></g>
+<g transform="translate(87.4 245.0) scale(0.9167)" fill="none" stroke="#FFFFFF" stroke-opacity="0.92" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 2 7l10 5 10-5-10-5ZM2 17l10 5 10-5M2 12l10 5 10-5"/></g>
+<text x="157.4" y="261.5" text-anchor="middle" font-size="15.0" font-weight="600" fill="#FFFFFF">Shapes</text>
+</a>
+<a href="flow.svg" target="_blank" rel="noopener noreferrer">
+<g filter="url(#cardShadow)"><rect x="70.0" y="318.0" width="152.8" height="64.0" rx="14" fill="url(#g-consumer)" stroke="#FFFFFF" stroke-opacity="0.18" stroke-width="1"/></g>
+<g transform="translate(86.0 339.0) scale(0.9167)" fill="none" stroke="#FFFFFF" stroke-opacity="0.92" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></g>
+<text x="157.4" y="355.5" text-anchor="middle" font-size="15.0" font-weight="600" fill="#FFFFFF">Edge styling</text>
+</a>
+<a href="layers.svg" target="_blank" rel="noopener noreferrer">
+<g filter="url(#cardShadow)"><rect x="71.4" y="412.0" width="150.0" height="64.0" rx="14" fill="url(#g-service)" stroke="#FFFFFF" stroke-opacity="0.18" stroke-width="1"/></g>
+<g transform="translate(87.4 433.0) scale(0.9167)" fill="none" stroke="#FFFFFF" stroke-opacity="0.92" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8 12 3 3 8v8l9 5 9-5zM3 8l9 5 9-5M12 13v8"/></g>
+<text x="157.4" y="449.5" text-anchor="middle" font-size="15.0" font-weight="600" fill="#FFFFFF">Groups</text>
+</a>
+<a href="pipeline.svg" target="_blank" rel="noopener noreferrer">
+<g filter="url(#cardShadow)"><rect x="71.4" y="506.0" width="150.0" height="64.0" rx="14" fill="url(#g-service)" stroke="#FFFFFF" stroke-opacity="0.18" stroke-width="1"/></g>
+<g transform="translate(87.4 527.0) scale(0.9167)" fill="none" stroke="#FFFFFF" stroke-opacity="0.92" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3h6v4H9zM2 17h6v4H2zM16 17h6v4h-6zM12 7v4M5 17v-3h14v3"/></g>
+<text x="157.4" y="543.5" text-anchor="middle" font-size="15.0" font-weight="600" fill="#FFFFFF">Layered</text>
+</a>
+<a href="hub.svg" target="_blank" rel="noopener noreferrer">
+<g filter="url(#cardShadow)"><rect x="71.4" y="600.0" width="150.0" height="64.0" rx="14" fill="url(#g-gateway)" stroke="#FFFFFF" stroke-opacity="0.18" stroke-width="1"/></g>
+<g transform="translate(87.4 621.0) scale(0.9167)" fill="none" stroke="#FFFFFF" stroke-opacity="0.92" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></g>
+<text x="157.4" y="637.5" text-anchor="middle" font-size="15.0" font-weight="600" fill="#FFFFFF">Radial</text>
+</a>
+<a href="schema.svg" target="_blank" rel="noopener noreferrer">
+<g filter="url(#cardShadow)"><rect x="71.4" y="694.0" width="150.0" height="64.0" rx="14" fill="url(#g-store)" stroke="#FFFFFF" stroke-opacity="0.18" stroke-width="1"/></g>
+<g transform="translate(87.4 715.0) scale(0.9167)" fill="none" stroke="#FFFFFF" stroke-opacity="0.92" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6c0-1.7 3.6-3 8-3s8 1.3 8 3-3.6 3-8 3-8-1.3-8-3Zm0 0v12c0 1.7 3.6 3 8 3s8-1.3 8-3V6M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></g>
+<text x="157.4" y="731.5" text-anchor="middle" font-size="15.0" font-weight="600" fill="#FFFFFF">Tables</text>
+</a>
+<a href="auto.svg" target="_blank" rel="noopener noreferrer">
+<g filter="url(#cardShadow)"><rect x="71.4" y="788.0" width="150.0" height="64.0" rx="14" fill="url(#g-app)" stroke="#FFFFFF" stroke-opacity="0.18" stroke-width="1"/></g>
+<g transform="translate(87.4 809.0) scale(0.9167)" fill="none" stroke="#FFFFFF" stroke-opacity="0.92" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4v12M6 20a2 2 0 1 0 0-4 2 2 0 0 0 0 4ZM18 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm0 0c0 5-4 6-8 6"/></g>
+<text x="157.4" y="825.5" text-anchor="middle" font-size="15.0" font-weight="600" fill="#FFFFFF">Auto layout</text>
+</a>
+<a href="kitchen-sink.svg" target="_blank" rel="noopener noreferrer">
+<g filter="url(#cardShadow)"><rect x="71.4" y="882.0" width="150.0" height="64.0" rx="14" fill="url(#g-queue)" stroke="#FFFFFF" stroke-opacity="0.18" stroke-width="1"/></g>
+<g transform="translate(87.4 903.0) scale(0.9167)" fill="none" stroke="#FFFFFF" stroke-opacity="0.92" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6h12v12H6zM9 2v2M15 2v2M9 20v2M15 20v2M2 9h2M2 15h2M20 9h2M20 15h2M10 10h4v4h-4z"/></g>
+<text x="157.4" y="919.5" text-anchor="middle" font-size="15.0" font-weight="600" fill="#FFFFFF">Full tour</text>
+</a>
+</svg>

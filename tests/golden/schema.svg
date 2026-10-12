@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="436" height="586" viewBox="0 0 436 586" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, Roboto, sans-serif">
+<defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0B1220"/><stop offset="1" stop-color="#131F38"/></linearGradient><linearGradient id="g-app" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#818CF8"/><stop offset="1" stop-color="#4F46E5"/></linearGradient><linearGradient id="g-consumer" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#EC4899"/><stop offset="1" stop-color="#DB2777"/></linearGradient><linearGradient id="g-default" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#64748B"/><stop offset="1" stop-color="#475569"/></linearGradient><linearGradient id="g-gateway" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#64748B"/><stop offset="1" stop-color="#475569"/></linearGradient><linearGradient id="g-mobile" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2DD4BF"/><stop offset="1" stop-color="#0D9488"/></linearGradient><linearGradient id="g-queue" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F59E0B"/><stop offset="1" stop-color="#D97706"/></linearGradient><linearGradient id="g-service" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#10B981"/><stop offset="1" stop-color="#059669"/></linearGradient><linearGradient id="g-source" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3B82F6"/><stop offset="1" stop-color="#1D4ED8"/></linearGradient><linearGradient id="g-store" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8B5CF6"/><stop offset="1" stop-color="#7C3AED"/></linearGradient><linearGradient id="g-tablet" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#E879F9"/><stop offset="1" stop-color="#C026D3"/></linearGradient><linearGradient id="g-web" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#22D3EE"/><stop offset="1" stop-color="#0891B2"/></linearGradient><filter id="cardShadow" x="-30%%" y="-30%%" width="160%%" height="160%%"><feDropShadow dx="0" dy="5" stdDeviation="7" flood-color="#000000" flood-opacity="0.35"/></filter><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#7DD3FC"/></marker><marker id="arrow-dot" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5"><circle cx="5" cy="5" r="4" fill="#7DD3FC"/></marker></defs>
+<rect width="436" height="586" fill="url(#bg)"/>
+<text x="70" y="58" font-size="26" font-weight="700" fill="#F8FAFC">Schema</text><text x="70" y="86" font-size="14" fill="#94A3B8">Two related tables</text>
+<g filter="url(#cardShadow)"><rect x="70.0" y="130.0" width="296.4" height="164.0" rx="12" fill="url(#g-tablet)" fill-opacity="0.22" stroke="#E879F9" stroke-opacity="0.5" stroke-width="1.2"/></g>
+<rect x="70.0" y="130.0" width="296.4" height="46.0" rx="12" fill="#E879F9" fill-opacity="0.85"/>
+<text x="86.0" y="158.0" font-size="13" font-weight="700" letter-spacing="0.5" fill="#FFFFFF" fill-opacity="0.95">USERS</text>
+<rect x="70.0" y="176.0" width="296.4" height="34.0" fill="#FFFFFF" fill-opacity="0.06"/>
+<text x="84.0" y="197.5" font-size="13" fill="#FFFFFF" fill-opacity="0.90">column</text>
+<text x="188.0" y="197.5" font-size="13" fill="#FFFFFF" fill-opacity="0.90">type</text>
+<text x="299.6" y="197.5" font-size="13" fill="#FFFFFF" fill-opacity="0.90">key</text>
+<line x1="70.0" y1="210.0" x2="366.4" y2="210.0" stroke="#FFFFFF" stroke-opacity="0.22" stroke-width="1"/>
+<text x="84.0" y="228.5" font-size="13" fill="#E2E8F0" fill-opacity="0.92">id</text>
+<text x="188.0" y="228.5" font-size="13" fill="#E2E8F0" fill-opacity="0.92">uuid</text>
+<text x="299.6" y="228.5" font-size="13" fill="#E2E8F0" fill-opacity="0.92">PK</text>
+<line x1="70.0" y1="238.0" x2="366.4" y2="238.0" stroke="#FFFFFF" stroke-opacity="0.10" stroke-width="1"/>
+<rect x="70.0" y="238.0" width="296.4" height="28.0" fill="#FFFFFF" fill-opacity="0.03"/>
+<text x="84.0" y="256.5" font-size="13" fill="#E2E8F0" fill-opacity="0.92">email</text>
+<text x="188.0" y="256.5" font-size="13" fill="#E2E8F0" fill-opacity="0.92">text</text>
+<text x="299.6" y="256.5" font-size="13" fill="#E2E8F0" fill-opacity="0.92">UK</text>
+<line x1="70.0" y1="266.0" x2="366.4" y2="266.0" stroke="#FFFFFF" stroke-opacity="0.10" stroke-width="1"/>
+<text x="84.0" y="284.5" font-size="13" fill="#E2E8F0" fill-opacity="0.92">created_at</text>
+<text x="188.0" y="284.5" font-size="13" fill="#E2E8F0" fill-opacity="0.92">timestamptz</text>
+<line x1="174.0" y1="176.0" x2="174.0" y2="294.0" stroke="#FFFFFF" stroke-opacity="0.10" stroke-width="1"/>
+<line x1="285.6" y1="176.0" x2="285.6" y2="294.0" stroke="#FFFFFF" stroke-opacity="0.10" stroke-width="1"/>
+<g filter="url(#cardShadow)"><rect x="99.4" y="324.0" width="237.6" height="192.0" rx="12" fill="url(#g-app)" fill-opacity="0.22" stroke="#818CF8" stroke-opacity="0.5" stroke-width="1.2"/></g>
+<rect x="99.4" y="324.0" width="237.6" height="46.0" rx="12" fill="#818CF8" fill-opacity="0.85"/>
+<text x="115.4" y="352.0" font-size="13" font-weight="700" letter-spacing="0.5" fill="#FFFFFF" fill-opacity="0.95">ORDERS</text>
+<rect x="99.4" y="370.0" width="237.6" height="34.0" fill="#FFFFFF" fill-opacity="0.06"/>
+<text x="113.4" y="391.5" font-size="13" fill="#FFFFFF" fill-opacity="0.90">column</text>
+<text x="194.6" y="391.5" font-size="13" fill="#FFFFFF" fill-opacity="0.90">type</text>
+<text x="275.8" y="391.5" font-size="13" fill="#FFFFFF" fill-opacity="0.90">key</text>
+<line x1="99.4" y1="404.0" x2="337.0" y2="404.0" stroke="#FFFFFF" stroke-opacity="0.22" stroke-width="1"/>
+<text x="113.4" y="422.5" font-size="13" fill="#E2E8F0" fill-opacity="0.92">id</text>
+<text x="194.6" y="422.5" font-size="13" fill="#E2E8F0" fill-opacity="0.92">uuid</text>
+<text x="275.8" y="422.5" font-size="13" fill="#E2E8F0" fill-opacity="0.92">PK</text>
+<line x1="99.4" y1="432.0" x2="337.0" y2="432.0" stroke="#FFFFFF" stroke-opacity="0.10" stroke-width="1"/>
+<rect x="99.4" y="432.0" width="237.6" height="28.0" fill="#FFFFFF" fill-opacity="0.03"/>
+<text x="113.4" y="450.5" font-size="13" fill="#E2E8F0" fill-opacity="0.92">user_id</text>
+<text x="194.6" y="450.5" font-size="13" fill="#E2E8F0" fill-opacity="0.92">uuid</text>
+<text x="275.8" y="450.5" font-size="13" fill="#E2E8F0" fill-opacity="0.92">FK</text>
+<line x1="99.4" y1="460.0" x2="337.0" y2="460.0" stroke="#FFFFFF" stroke-opacity="0.10" stroke-width="1"/>
+<text x="113.4" y="478.5" font-size="13" fill="#E2E8F0" fill-opacity="0.92">total</text>
+<text x="194.6" y="478.5" font-size="13" fill="#E2E8F0" fill-opacity="0.92">numeric</text>
+<line x1="99.4" y1="488.0" x2="337.0" y2="488.0" stroke="#FFFFFF" stroke-opacity="0.10" stroke-width="1"/>
+<rect x="99.4" y="488.0" width="237.6" height="28.0" fill="#FFFFFF" fill-opacity="0.03"/>
+<text x="113.4" y="506.5" font-size="13" fill="#E2E8F0" fill-opacity="0.92">status</text>
+<text x="194.6" y="506.5" font-size="13" fill="#E2E8F0" fill-opacity="0.92">text</text>
+<line x1="180.6" y1="370.0" x2="180.6" y2="516.0" stroke="#FFFFFF" stroke-opacity="0.10" stroke-width="1"/>
+<line x1="261.8" y1="370.0" x2="261.8" y2="516.0" stroke="#FFFFFF" stroke-opacity="0.10" stroke-width="1"/>
+<path d="M 218.2 324.0 C 218.2 294.0, 218.2 324.0, 218.2 294.0" fill="none" stroke="#7DD3FC" stroke-width="2.2" stroke-opacity="0.85" marker-end="url(#arrow)"/>
+<rect x="164.0" y="296.0" width="108.4" height="26" rx="13" fill="#1E293B" fill-opacity="0.9"/><text x="218.2" y="313.5" text-anchor="middle" font-size="12.5" fill="#E2E8F0">user_id → id</text>
+</svg>

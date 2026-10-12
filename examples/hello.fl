@@ -1,0 +1,12 @@
+# FlowLite — walking-skeleton example (change 0001)
+# compile: PYTHONPATH=src python3 -m flowlite examples/hello.fl -o build/hello.svg
+
+title "Hello FlowLite" "three cards, gradients, arrows"
+theme midnight
+
+node web "Web app" kind=web icon=globe
+node api "API"     kind=gateway icon=network
+node db  "Storage" kind=store shape=db icon=database
+
+edge web -> api
+edge api -> db

@@ -1,0 +1,17 @@
+# FlowLite — edge styling showcase (change 0003)
+# compile: PYTHONPATH=src python3 -m flowlite examples/flow.fl -o docs/img/flow.svg --png
+#
+# labels, dashed/bold strokes, dot/no arrow heads and straight/bezier curves.
+
+title "Edge styling" "labels, styles, curves"
+theme midnight
+
+node web  "Web app"   kind=web
+node api  "API"       kind=gateway
+node bus  "Event bus" kind=queue    shape=hub
+node db   "Database"  kind=store    shape=db
+
+edge web -> api "HTTPS" style=bold
+edge api -> bus "publish" arrow=dot
+edge api -> db  "cache miss" curve=straight
+edge bus -> db  "results" style=dashed arrow=none

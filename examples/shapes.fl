@@ -1,0 +1,22 @@
+# FlowLite — shapes showcase (change 0002)
+# compile: PYTHONPATH=src python3 -m flowlite examples/shapes.fl -o build/shapes.svg --png
+#
+# every shape once: card, db, hub, hex, pill, diamond and regular polygons.
+
+title "Shape vocabulary" "card, db, hub, hex, pill, diamond, polyN"
+theme midnight
+
+node card    "Card"       kind=service  icon=box
+node db      "Database"   kind=store    shape=db icon=database
+node hub     "Event bus"  kind=queue    shape=hub icon=zap
+node hex     "Gateway"    kind=gateway  shape=hex icon=network
+node pill    "Scheduler"  kind=service  shape=pill icon=activity
+node diamond "Decision?"  kind=consumer shape=diamond icon=git-branch
+node tri     "Poly5"      kind=source   shape=poly5 icon=cpu
+node oct     "Poly8"      kind=app      shape=poly8 icon=layers
+
+edge card -> db
+edge db -> hub
+edge hex -> pill
+edge diamond -> tri
+edge tri -> oct

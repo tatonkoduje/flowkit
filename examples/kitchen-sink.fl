@@ -1,0 +1,75 @@
+# FlowLite — the full tour (kitchen sink)
+# compile: PYTHONPATH=src python3 -m flowlite examples/kitchen-sink.fl -o docs/img/kitchen-sink.svg --png
+#
+# This one diagram exercises every FlowLite feature:
+#   title + subtitle, theme
+#   shapes: card, db, hub, hex, pill, diamond, polyN
+#   kinds  (many palette entries)
+#   icons  (many of the vendored set)
+#   link=  (clickable nodes)
+#   groups (+ in=) with members laid out in a grid
+#   tables  (col: / row:, | cells)
+#   edges   (labels, style=dashed/bold, arrow=dot/none, curve=straight)
+#   layer   (explicit left-to-right columns) — see auto.fl for layout auto
+
+title "Order platform" "every FlowLite feature in one diagram — kitchen sink"
+theme midnight
+
+# Columns, left to right: clients → edge → core services → data.
+layer 1: web mob partner
+layer 2: gw
+layer 3: fraud bus
+layer 4: core
+layer 5: s3 audit
+
+# --- Clients (layer 1) ------------------------------------------------------
+
+node web     "Web storefront" kind=web    shape=card icon=globe   link=https://example.com
+node mob     "Mobile app"     kind=mobile shape=card icon=globe
+node partner "Partner API"    kind=app    shape=pill icon=network
+
+# --- Edge (layer 2) ---------------------------------------------------------
+
+node gw "API gateway" kind=gateway shape=hex icon=network
+
+# --- Decision + event hub (layer 3) -----------------------------------------
+
+node fraud "Fraud check" kind=consumer shape=diamond icon=shield
+node bus   "Event bus"   kind=queue    shape=hub     icon=message-square
+
+# --- Core services (layer 4) — a group whose members sit in a grid ----------
+
+group core "Core services" kind=service
+
+node orders "Orders"   kind=service shape=card  icon=shopping-cart in=core
+node pay    "Payments" kind=service shape=card  icon=credit-card     in=core
+node users  "Users"    kind=service shape=card  icon=users           in=core
+node notify "Notify"   kind=queue   shape=card  icon=bell            in=core
+node router "Router"   kind=service shape=poly6 icon=cpu             in=core
+
+# --- Data (layer 5) — a db and a table --------------------------------------
+
+node s3 "Object store" kind=store shape=db icon=cloud
+
+table audit "audit_log" kind=tablet
+col: column | type | note
+row: id | uuid | primary key
+row: actor | text | who did it
+row: action | text | what happened
+row: at | timestamptz | when
+row: payload | jsonb | details
+
+# --- Edges: labels, styles, arrows and curves -------------------------------
+
+edge web     -> gw    "HTTPS"    style=bold
+edge mob     -> gw    "HTTPS"    style=bold
+edge partner -> gw    "signed"   curve=straight
+edge gw      -> fraud "screen"
+edge fraud   -> core  "allow"    style=bold
+edge bus     -> core  "fanout"   arrow=none
+edge core    -> s3    "archive"  arrow=dot
+edge core    -> audit "journal"  style=dashed
+edge orders  -> pay   "charge"
+edge orders  -> users "profile"
+edge pay     -> bus   "publish"
+edge notify  -> users "email"    style=dashed

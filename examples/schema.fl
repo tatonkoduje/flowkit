@@ -1,0 +1,16 @@
+title "Schema" "Two related tables"
+
+table users "users" kind=tablet
+col: column | type | key
+row: id | uuid | PK
+row: email | text | UK
+row: created_at | timestamptz |
+
+table orders "orders" kind=app
+col: column | type | key
+row: id | uuid | PK
+row: user_id | uuid | FK
+row: total | numeric |
+row: status | text |
+
+edge orders -> users "user_id → id"
