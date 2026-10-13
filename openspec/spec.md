@@ -190,6 +190,61 @@ explicitly; unassigned items SHALL fall back to the default stack. See
 [Layered layout](#requirement-layered-layout) and
 [Radial layout](#requirement-radial-layout).
 
+### Requirement: Timeline
+The language SHALL support a `timeline` diagram type rendering a Gantt chart:
+`timeline "title" ["subtitle"] [from <date>] [to <date>] [week=<px>] [width=<px>]`,
+`section "title" [color=]`, `bar "label" <start> -> <end> [section=] [color=]
+[state=] [note=]`, `milestone "label" <date> [section=] [color=] [note=]`,
+`axis <unit> [grid <unit>]` and `marker <date> ["label"]`, with ISO
+`YYYY-MM-DD` dates. A source that uses `timeline` SHALL ignore graph
+instructions (with a warning).
+
+#### Scenario: Range and axis
+- **WHEN** a timeline declares `from`/`to` and `axis month grid week`
+- **THEN** the plot spans that range with monthly tick labels and weekly gridlines
+
+#### Scenario: Configurable axis width
+- **WHEN** a timeline declares `week=<px>` (or `width=<px>`)
+- **THEN** the plot is drawn at that pixels-per-week (or exact width); the range is
+  unchanged; if both are given `width=` wins with a warning
+
+#### Scenario: Gridlines span the whole plot
+- **WHEN** `grid week` is set
+- **THEN** the plot starts one full week before the range start (the previous
+  Monday), so a complete empty week of gray gridlines precedes the start marker
+  (which sits well inside the plot), and no axis label is drawn left of the plot
+
+#### Scenario: Axis is bounded by the plot
+- **WHEN** the range starts mid-month with `grid week`
+- **THEN** the first month tick is on or after the plot's left edge (no label
+  outside the chart)
+
+#### Scenario: Bars carry start, end, colour and note
+- **WHEN** a `bar` declares a `section=`, `color=`, `state=` or `note=`
+- **THEN** the bar is drawn in that row with the resolved colour and its label/note
+
+#### Scenario: Single-day bar
+- **WHEN** a bar's start equals its end
+- **THEN** it renders as a half-height bar with a minimum visible width
+
+#### Scenario: Milestone
+- **WHEN** a source declares a `milestone`
+- **THEN** a diamond is drawn at that date
+
+#### Scenario: Marker
+- **WHEN** a source declares `marker <date> "text"`
+- **THEN** a vertical dashed marker line with the label is drawn at that date
+
+#### Scenario: Timeline wins over graph instructions
+- **WHEN** a source declares `timeline` and also `node`/`edge`
+- **THEN** the timeline is rendered and the graph instructions are ignored with a
+  warning
+
+#### Scenario: Timeline validation warns
+- **WHEN** a timeline instruction appears before any `timeline`, references an
+  unknown section, has `end < start`, or an unknown axis/grid/state/week/width
+- **THEN** a warning is emitted and the default/swap applies
+
 ## Rendering
 
 ### Requirement: Vector-first output

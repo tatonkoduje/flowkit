@@ -38,6 +38,10 @@ The docs are a **deliverable, not an afterthought**.
 | 0009 | [interactive](archive/0009-interactive-links/proposal.md) | `link=` clickable nodes | `index.fl` → links between examples | done |
 | 0010 | [png](archive/0010-png-export/proposal.md) | hardened best-effort PNG export (+ sizing) | (regenerates gallery PNGs) | done |
 | 0011 | [auto-layout](archive/0011-auto-layout/proposal.md) | directed (Sugiyama-style) engine | `auto.fl` — same source, auto-placed | done |
+| 0012 | [timeline](archive/0012-timeline/proposal.md) | Gantt-style `timeline`: sections, bars, milestones, axis/grid, markers, colours | `timeline.fl` — delivery schedule | done |
+| 0013 | [timeline spacing](archive/0013-timeline-spacing/proposal.md) | `week=` / `width=` to stretch the timeline x-axis | extends `timeline.fl` | done |
+| 0014 | [timeline leading grid](archive/0014-timeline-grid-lead/proposal.md) | grid covers the area before the start marker | extends `timeline.fl` | done |
+| 0015 | [timeline axis align](archive/0015-timeline-axis-align/proposal.md) | axis ticks bounded by the plot + a full leading week of grid | extends `timeline.fl` | done |
 
 Order is a guide, not a contract — changes may be reordered or split, but each
 one stays small and independently testable, and each still ships an example + docs.

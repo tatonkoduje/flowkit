@@ -8,6 +8,7 @@ depends on the other stages.
 from __future__ import annotations
 
 from dataclasses import dataclass, field
+from datetime import date
 
 _AMP = chr(38)  # &
 
@@ -84,6 +85,53 @@ class Table:
 
 
 @dataclass(frozen=True)
+class Marker:
+    """A vertical marker line on a timeline (e.g. a project start)."""
+
+    date: "date"
+    label: str = ""
+
+
+@dataclass(frozen=True)
+class TimelineSection:
+    """One row band of a timeline, with an optional colour."""
+
+    title: str
+    color: str = ""  # palette name or #hex; "" -> theme default
+
+
+@dataclass(frozen=True)
+class TimelineItem:
+    """A bar (start..end) or a milestone (start == end) on a timeline."""
+
+    label: str
+    start: "date"
+    end: "date"
+    section: str = ""
+    color: str = ""  # explicit override (palette name or #hex)
+    state: str = "normal"  # normal | done | active | planned
+    note: str = ""
+    milestone: bool = False
+
+
+@dataclass(frozen=True)
+class Timeline:
+    """A Gantt-style timeline: a range, sections, items and markers."""
+
+    title: str = ""
+    subtitle: str = ""
+    start: "date | None" = None
+    end: "date | None" = None
+    axis: str = "month"  # day | week | month
+    grid: str = ""  # "", day, week, month
+    sections: tuple[TimelineSection, ...] = ()
+    items: tuple[TimelineItem, ...] = ()
+    markers: tuple[Marker, ...] = ()
+    week: float | None = None  # pixels per week; None -> layout default
+    width: int | None = None  # total plot width; overrides `week`
+
+
+@dataclass(frozen=True)
 class Layer:
     """An ordered column of node/group ids for the layered layout."""
 
@@ -128,3 +176,4 @@ class Diagram:
     radial: "Radial | None" = None
     tables: tuple[Table, ...] = field(default_factory=tuple)
     auto_layout: bool = False
+    timeline: "Timeline | None" = None

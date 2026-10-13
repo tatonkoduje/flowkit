@@ -144,3 +144,16 @@ node, `layer` columns, and edges with labels, `style=bold`/`dashed`,
 
 _Source: [`examples/kitchen-sink.fl`](../examples/kitchen-sink.fl) ·
 Output: [`docs/img/kitchen-sink.svg`](img/kitchen-sink.svg)_
+
+---
+
+## 0012 — Timeline (Gantt)
+
+**`timeline.fl`** — a delivery timeline: coloured phase rows, a start marker,
+weekly gridlines, a month axis, half-height single-day bars, milestone diamonds
+and `done`/`active`/`planned` states.
+
+![timeline](img/timeline.png)
+
+_Source: [`examples/timeline.fl`](../examples/timeline.fl) ·
+Output: [`docs/img/timeline.svg`](img/timeline.svg)_

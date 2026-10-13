@@ -61,6 +61,17 @@ message is printed).
 
 Every stage is a pure function, so the same source always renders identically.
 
+## Diagram types
+
+FlowLite draws two kinds of picture from the same `.fl` language:
+
+- **Graphs** — `node`/`edge` diagrams (shapes, groups, layers, radial, tables).
+- **Timelines** — a `timeline` Gantt chart: `section`, `bar`, `milestone`, on a
+  date `axis` with `grid` lines and `marker`s. See
+  [`examples/timeline.fl`](../examples/timeline.fl).
+
+A source picks one: a `timeline` ignores `node`/`edge` (with a warning).
+
 ## Next steps
 
 - [Language reference](../reference/language.md) — every instruction.

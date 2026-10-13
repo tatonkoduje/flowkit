@@ -8,10 +8,23 @@ from __future__ import annotations
 
 import re
 from dataclasses import replace
+from datetime import date
 from pathlib import Path
 
 from . import icons
-from .model import Diagram, Edge, Group, Layer, Node, Radial, Table
+from .model import (
+    Diagram,
+    Edge,
+    Group,
+    Layer,
+    Marker,
+    Node,
+    Radial,
+    Table,
+    Timeline,
+    TimelineItem,
+    TimelineSection,
+)
 
 TITLE_RE = re.compile(r'^title\s+"([^"]*)"(?:\s+"([^"]*)")?\s*$')
 THEME_RE = re.compile(r"^theme\s+(\w+)\s*$")
@@ -39,6 +52,30 @@ RADIAL_DOCK_RE = re.compile(r"\bdock\b")
 EDGE_LABEL_RE = re.compile(r'^\s*"([^"]*)"')
 EDGE_ATTR_RE = re.compile(r"\b(style|arrow|curve)=(\w+)")
 
+# Timeline instructions.
+TIMELINE_RE = re.compile(r'^timeline\s+"([^"]*)"(?:\s+"([^"]*)")?(.*)$')
+SECTION_RE = re.compile(r'^section\s+"([^"]*)"(.*)$')
+BAR_RE = re.compile(
+    r'^bar\s+"([^"]*)"\s+(\d{4}-\d{2}-\d{2})\s*->\s*(\d{4}-\d{2}-\d{2})(.*)$'
+)
+MILESTONE_RE = re.compile(r'^milestone\s+"([^"]*)"\s+(\d{4}-\d{2}-\d{2})(.*)$')
+AXIS_RE = re.compile(r"^axis\s+(\w+)(?:\s+grid\s+(\w+))?$")
+MARKER_RE = re.compile(r'^marker\s+(today|\d{4}-\d{2}-\d{2})(?:\s+"([^"]*)")?$')
+TL_SECTION_RE = re.compile(r'\bsection="([^"]*)"')
+TL_COLOR_RE = re.compile(r"\bcolor=(\w+|#[0-9A-Fa-f]{3,8})")
+TL_STATE_RE = re.compile(r"\bstate=(\w+)")
+TL_NOTE_RE = re.compile(r'\bnote="([^"]*)"')
+TL_FROM_RE = re.compile(r"\bfrom\s+(\d{4}-\d{2}-\d{2})")
+TL_TO_RE = re.compile(r"\bto\s+(\d{4}-\d{2}-\d{2})")
+TL_WEEK_RE = re.compile(r"\bweek=(\d+(?:\.\d+)?)")
+TL_WIDTH_RE = re.compile(r"\bwidth=(\d+)")
+TL_WEEK_ANY_RE = re.compile(r"\bweek=(\S+)")
+TL_WIDTH_ANY_RE = re.compile(r"\bwidth=(\S+)")
+
+#: Allowed timeline enums.
+TL_UNITS = ("day", "week", "month")
+TL_STATES = ("normal", "done", "active", "planned")
+
 #: Named shapes. ``polyN`` (N = 3..12) is handled separately.
 NAMED_SHAPES = ("card", "db", "hub", "hex", "pill", "diamond")
 
@@ -52,6 +89,51 @@ def _is_known_shape(shape: str) -> bool:
     if shape in NAMED_SHAPES:
         return True
     return shape.startswith("poly") and shape[4:].isdigit()
+
+
+def _parse_date(text: str) -> "date | None":
+    """Parse an ISO ``YYYY-MM-DD`` date; ``None`` if invalid."""
+    try:
+        return date.fromisoformat(text)
+    except ValueError:
+        return None
+
+
+def _timeline_item(
+    label: str,
+    start: "date",
+    end: "date",
+    rest: str,
+    current_section: str,
+    warnings: list[str],
+    lineno: int,
+    milestone: bool = False,
+) -> TimelineItem:
+    """Build a timeline item from a bar/milestone tail with its attributes."""
+    section_match = TL_SECTION_RE.search(rest)
+    section = section_match.group(1) if section_match else current_section
+    color_match = TL_COLOR_RE.search(rest)
+    state_match = TL_STATE_RE.search(rest)
+    note_match = TL_NOTE_RE.search(rest)
+    state = "normal"
+    if state_match:
+        if state_match.group(1) in TL_STATES:
+            state = state_match.group(1)
+        else:
+            warnings.append(
+                f"line {lineno}: unknown state '{state_match.group(1)}', "
+                f"using 'normal'"
+            )
+    return TimelineItem(
+        label=label,
+        start=start,
+        end=end,
+        section=section,
+        color=color_match.group(1) if color_match else "",
+        state=state,
+        note=note_match.group(1) if note_match else "",
+        milestone=milestone,
+    )
 
 
 def parse(text: str) -> tuple[Diagram, list[str]]:
@@ -68,6 +150,19 @@ def parse(text: str) -> tuple[Diagram, list[str]]:
     tables: list[Table] = []
     current_table: int | None = None
     auto_layout = False
+    # Timeline state (mutually exclusive with the graph). `tl_*` are mutable
+    # holders filled while parsing and frozen into a Timeline at the end.
+    tl_open = False
+    tl_title, tl_subtitle = "", ""
+    tl_start: "date | None" = None
+    tl_end: "date | None" = None
+    tl_axis, tl_grid = "month", ""
+    tl_week: float | None = None
+    tl_width: int | None = None
+    tl_sections: list[TimelineSection] = []
+    tl_items: list[TimelineItem] = []
+    tl_markers: list[Marker] = []
+    tl_current_section = ""
     warnings: list[str] = []
 
     for lineno, raw in enumerate(text.splitlines(), start=1):
@@ -237,6 +332,119 @@ def parse(text: str) -> tuple[Diagram, list[str]]:
                 )
             continue
 
+        m = TIMELINE_RE.match(line)
+        if m:
+            tl_open = True
+            tl_title, tl_subtitle = m.group(1), m.group(2) or ""
+            rest = m.group(3)
+            from_match, to_match = TL_FROM_RE.search(rest), TL_TO_RE.search(rest)
+            if from_match:
+                tl_start = _parse_date(from_match.group(1))
+            if to_match:
+                tl_end = _parse_date(to_match.group(1))
+            week_match = TL_WEEK_RE.search(rest)
+            width_match = TL_WIDTH_RE.search(rest)
+            if week_match:
+                value = float(week_match.group(1))
+                if value > 0:
+                    tl_week = value
+                else:
+                    warnings.append(
+                        f"line {lineno}: week must be a positive number, ignored"
+                    )
+            elif TL_WEEK_ANY_RE.search(rest):
+                warnings.append(
+                    f"line {lineno}: week must be a positive number, ignored"
+                )
+            if width_match:
+                value_w = int(width_match.group(1))
+                if value_w > 0:
+                    tl_width = value_w
+                else:
+                    warnings.append(
+                        f"line {lineno}: width must be a positive number, ignored"
+                    )
+            elif TL_WIDTH_ANY_RE.search(rest):
+                warnings.append(
+                    f"line {lineno}: width must be a positive number, ignored"
+                )
+            if tl_width is not None and tl_week is not None:
+                warnings.append(
+                    f"line {lineno}: width overrides week, ignoring week"
+                )
+                tl_week = None
+            continue
+
+        if tl_open:
+            m = SECTION_RE.match(line)
+            if m:
+                color_match = TL_COLOR_RE.search(m.group(2))
+                tl_sections.append(
+                    TimelineSection(
+                        title=m.group(1),
+                        color=color_match.group(1) if color_match else "",
+                    )
+                )
+                tl_current_section = m.group(1)
+                continue
+
+            m = BAR_RE.match(line)
+            if m:
+                start, end = _parse_date(m.group(2)), _parse_date(m.group(3))
+                assert start is not None and end is not None  # regex guarantees
+                if end < start:
+                    warnings.append(
+                        f"line {lineno}: bar '{m.group(1)}' end before start, swapped"
+                    )
+                    start, end = end, start
+                rest = m.group(4)
+                tl_items.append(
+                    _timeline_item(
+                        m.group(1), start, end, rest, tl_current_section, warnings, lineno
+                    )
+                )
+                continue
+
+            m = MILESTONE_RE.match(line)
+            if m:
+                when = _parse_date(m.group(2))
+                assert when is not None
+                tl_items.append(
+                    _timeline_item(
+                        m.group(1), when, when, m.group(3), tl_current_section,
+                        warnings, lineno, milestone=True,
+                    )
+                )
+                continue
+
+            m = AXIS_RE.match(line)
+            if m:
+                if m.group(1) in TL_UNITS:
+                    tl_axis = m.group(1)
+                else:
+                    warnings.append(
+                        f"line {lineno}: unknown axis '{m.group(1)}', using 'month'"
+                    )
+                if m.group(2):
+                    if m.group(2) in TL_UNITS:
+                        tl_grid = m.group(2)
+                    else:
+                        warnings.append(
+                            f"line {lineno}: unknown grid '{m.group(2)}', ignored"
+                        )
+                continue
+
+            m = MARKER_RE.match(line)
+            if m:
+                when = _parse_date(m.group(1)) if m.group(1) != "today" else None
+                if when is None:
+                    warnings.append(
+                        f"line {lineno}: marker 'today' needs an explicit date, ignored"
+                    )
+                else:
+                    tl_markers.append(Marker(date=when, label=m.group(2) or ""))
+                continue
+
         m = EDGE_RE.match(line)
         if m:
             rest = m.group(3)
@@ -268,6 +476,17 @@ def parse(text: str) -> tuple[Diagram, list[str]]:
                     curve=attrs["curve"],
                 )
             )
+            continue
+
+        # Timeline instructions given before any `timeline` header.
+        if (
+            SECTION_RE.match(line)
+            or BAR_RE.match(line)
+            or MILESTONE_RE.match(line)
+            or AXIS_RE.match(line)
+            or MARKER_RE.match(line)
+        ):
+            warnings.append(f"line {lineno}: timeline instruction outside a timeline")
             continue
 
         warnings.append(f"line {lineno}: cannot parse: {line}")
@@ -324,6 +543,33 @@ def parse(text: str) -> tuple[Diagram, list[str]]:
         warnings.append("layout auto ignored: 'radial' is used")
         auto_layout = False
 
+    # Build the timeline, if an instruction opened one. A timeline wins over any
+    # graph instructions in the same source.
+    timeline: Timeline | None = None
+    if tl_open:
+        if nodes or edges or groups or tables:
+            warnings.append("timeline present: node/edge/group/table ignored")
+        known_sections = {s.title for s in tl_sections}
+        for item in tl_items:
+            if item.section and item.section not in known_sections:
+                warnings.append(
+                    f"timeline item '{item.label}' references unknown "
+                    f"section '{item.section}'"
+                )
+        timeline = Timeline(
+            title=tl_title,
+            subtitle=tl_subtitle,
+            start=tl_start,
+            end=tl_end,
+            axis=tl_axis,
+            grid=tl_grid,
+            sections=tuple(tl_sections),
+            items=tuple(tl_items),
+            markers=tuple(tl_markers),
+            week=tl_week,
+            width=tl_width,
+        )
+
     diagram = Diagram(
         title=title,
         subtitle=subtitle,
@@ -335,6 +581,7 @@ def parse(text: str) -> tuple[Diagram, list[str]]:
         radial=radial,
         tables=tuple(tables),
         auto_layout=auto_layout,
+        timeline=timeline,
     )
     return diagram, warnings
 

@@ -1,0 +1,40 @@
+# FlowLite — timeline (Gantt) showcase (change 0012)
+# compile: PYTHONPATH=src python3 -m flowlite examples/timeline.fl -o docs/img/timeline.svg --png
+#
+# A `timeline` turns the source into a Gantt chart instead of a graph:
+#   range      from … to …
+#   sections   rows with a colour
+#   bar        start -> end, with state / note
+#   milestone  a single instant (diamond)
+#   axis / grid / marker
+
+title "Delivery timeline" "phases, POCs and milestones"
+
+timeline "Cassandra migration" from 2026-05-21 to 2026-10-31 week=72
+axis month grid week
+marker 2026-05-21 "Start 21 May 2026"
+
+section "Discovery"     color=slate
+section "Phase 0 — ADR"  color=blue
+section "Epic"          color=slate
+section "Phase 1"       color=teal
+section "Phase 2"       color=green
+
+bar "Idea / task created" 2026-05-21 -> 2026-05-21 section="Discovery" note="NTPSBK17-809"
+bar "Research"            2026-05-29 -> 2026-06-11 section="Discovery"
+milestone "Research resolved" 2026-07-21 section="Discovery"
+bar "DevOps research"     2026-08-05 -> 2026-08-08 section="Discovery" state=done
+
+bar "Preparing ADR"       2026-06-07 -> 2026-07-29 section="Phase 0 — ADR" state=done
+bar "POC — ZDM"           2026-07-06 -> 2026-07-14 section="Phase 0 — ADR" state=done
+bar "POC — Spark"         2026-06-15 -> 2026-06-17 section="Phase 0 — ADR" state=done
+bar "POC — snapshot"      2026-08-06 -> 2026-08-07 section="Phase 0 — ADR" state=done
+
+milestone "Epic created"  2026-07-21 section="Epic" note="NTPSBK18-145"
+
+bar "Setup Medusa"        2026-09-30 -> 2026-10-15 section="Phase 1" state=active
+bar "Dashboards"          2026-10-07 -> 2026-10-15 section="Phase 1" state=active
+bar "Cassandra Reaper"    2026-10-07 -> 2026-10-15 section="Phase 1" state=active
+
+bar "Migration script"    2026-09-21 -> 2026-09-22 section="Phase 2" state=planned
+bar "Connect proxy"       2026-10-06 -> 2026-10-07 section="Phase 2" state=planned

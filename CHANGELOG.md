@@ -21,6 +21,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   tab (change 0009).
 - `layout auto` — directed (Sugiyama-style) auto-layout deriving columns from
   the edges (change 0011).
+- `timeline` — a Gantt chart diagram type (`section`, `bar`, `milestone`, `axis`,
+  `grid`, `marker`) with theme-driven colours (change 0012).
+- Timeline axis width control — `week=<px>` (pixels per week) and `width=<px>`
+  (exact plot width) on the `timeline` header; weekly gridlines now span the part
+  of the first week before the range start (change 0013).
+
+### Fixed
+
+- Timeline: with `grid week`, the plot now starts on the Monday of the start
+  week, so the gray gridlines cover the area **before** the yellow start marker
+  instead of leaving an ungirded strip (change 0014).
+- Timeline: with `grid week` the plot now starts a **full week** before the range
+  start, and the month axis is bounded by the plot, so the leading week is fully
+  gridded and no axis label is drawn outside the chart (change 0015).
 
 ### Changed
 

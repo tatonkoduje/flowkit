@@ -20,6 +20,27 @@
     "tablet":   ["#E879F9", "#C026D3"],
     "default":  ["#64748B", "#475569"]
   },
+  "timeline": {
+    "rowBand": "#242B33",
+    "rowBandAlt": "#1F262E",
+    "rowLabel": "#C7D2DD",
+    "gridline": "#3A424D",
+    "gridLabel": "#8A97A4",
+    "axisLine": "#55636F",
+    "axisLabel": "#C7D2DD",
+    "barText": "#FFFFFF",
+    "noteText": "#B6C2CF",
+    "milestone": "#B6C2CF",
+    "palette": {
+      "slate": "#4C5966",
+      "blue": "#1D7AFC",
+      "teal": "#2898BD",
+      "green": "#22A06B",
+      "lime": "#6A9A23",
+      "amber": "#F5CD47",
+      "rose": "#E5484D"
+    }
+  },
   "tokens": {
     "charWidth": 8.4,
     "nodeHeight": 64,

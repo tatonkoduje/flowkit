@@ -20,6 +20,31 @@ class ThemeError(Exception):
 
 
 @dataclass(frozen=True)
+class TimelineTheme:
+    """Colours for the timeline (Gantt) renderer."""
+
+    row_band: str
+    row_band_alt: str
+    row_label: str
+    gridline: str
+    grid_label: str
+    axis_line: str
+    axis_label: str
+    bar_text: str
+    note_text: str
+    milestone: str
+    palette: dict[str, str]
+
+    def color(self, name: str, default: str = "") -> str:
+        """Resolve a palette name or raw ``#hex``; ``default`` if unknown/empty."""
+        if not name:
+            return default
+        if name.startswith("#"):
+            return name
+        return self.palette.get(name, default)
+
+
+@dataclass(frozen=True)
 class Theme:
     """A resolved theme: colors, palette and design tokens."""
 
@@ -40,10 +65,54 @@ class Theme:
     top: float
     margin: float
     font_family: str
+    timeline: TimelineTheme
 
     def kind_gradient(self, kind: str) -> tuple[str, str]:
         """Gradient pair for ``kind``, falling back to ``default``."""
         return self.palette.get(kind, self.palette["default"])
+
+
+DEFAULT_TIMELINE = {
+    "rowBand": "#242B33",
+    "rowBandAlt": "#1F262E",
+    "rowLabel": "#C7D2DD",
+    "gridline": "#3A424D",
+    "gridLabel": "#8A97A4",
+    "axisLine": "#55636F",
+    "axisLabel": "#C7D2DD",
+    "barText": "#FFFFFF",
+    "noteText": "#B6C2CF",
+    "milestone": "#B6C2CF",
+    "palette": {
+        "slate": "#4C5966",
+        "blue": "#1D7AFC",
+        "teal": "#2898BD",
+        "green": "#22A06B",
+        "lime": "#6A9A23",
+        "amber": "#F5CD47",
+        "rose": "#E5484D",
+    },
+}
+
+
+def _load_timeline(data: dict) -> TimelineTheme:
+    """Build the timeline colour block, filling gaps from DEFAULT_TIMELINE."""
+    block = data.get("timeline", {})
+    merged = {**DEFAULT_TIMELINE, **block}
+    palette = {**DEFAULT_TIMELINE["palette"], **block.get("palette", {})}
+    return TimelineTheme(
+        row_band=merged["rowBand"],
+        row_band_alt=merged["rowBandAlt"],
+        row_label=merged["rowLabel"],
+        gridline=merged["gridline"],
+        grid_label=merged["gridLabel"],
+        axis_line=merged["axisLine"],
+        axis_label=merged["axisLabel"],
+        bar_text=merged["barText"],
+        note_text=merged["noteText"],
+        milestone=merged["milestone"],
+        palette=palette,
+    )
 
 
 def load_theme(name: str, themes_dir: Path | None = None) -> Theme:
@@ -84,6 +153,7 @@ def load_theme(name: str, themes_dir: Path | None = None) -> Theme:
             top=float(tokens["top"]),
             margin=float(tokens["margin"]),
             font_family=tokens["fontFamily"],
+            timeline=_load_timeline(data),
         )
     except (KeyError, IndexError, TypeError, ValueError) as exc:
         raise ThemeError(f"malformed theme {name}: {exc}") from exc

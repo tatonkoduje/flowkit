@@ -286,6 +286,79 @@ edge gw -> slip
 
 ---
 
+## `timeline` — a Gantt chart
+
+A `timeline` turns the source into a **Gantt chart** instead of a graph. It is a
+diagram-level instruction; a source that uses it ignores `node`/`edge`/`group`/
+`table` (with a warning).
+
+```fl
+timeline "Title" ["Subtitle"] [from <date>] [to <date>] [week=<px>] [width=<px>]
+axis <unit> [grid <unit>]
+marker <date> ["label"]
+
+section "Title" [color=<name|#hex>]
+bar "Label" <start> -> <end> [section="…"] [color=…] [state=…] [note="…"]
+milestone "Label" <date>    [section="…"] [color=…] [note="…"]
+```
+
+| Instruction | Required | Notes |
+|---|---|---|
+| `timeline` | yes | opens the chart; `from`/`to` set the range (else derived from items) |
+| `section "…"` | no | a row band; `color=` fills it and is the default bar colour |
+| `bar "…" START -> END` | no | a rounded bar; `START == END` is a single-day (half-height) bar |
+| `milestone "…" DATE` | no | a diamond at one instant |
+| `axis <unit>` | no | bottom tick labels: `day` · `week` · `month` (default `month`) |
+| `axis … grid <unit>` | no | vertical gridlines with small labels (`day`/`week`/`month`) |
+| `marker <date> "…"` | no | a vertical dashed marker line with a label |
+| `week=<px>` | no | pixels per week — the gap between weeks on the x axis (default `46`) |
+| `width=<px>` | no | total plot width in pixels; overrides `week=` |
+
+Dates are ISO `YYYY-MM-DD`.
+
+**Axis width.** `from`/`to` decide *what* is shown; `week=`/`width=` decide *how
+wide* it is drawn. `week=72` makes every week ~1.6× wider (rooms for long bar
+labels); `width=1600` scales the range to exactly 1600 px. If both are given,
+`width=` wins (with a warning).
+
+**Leading week.** With `grid week`, the plot starts one full week **before** the
+range start (the Monday of the previous week), so a complete empty week of gray
+gridlines precedes the start marker — the yellow line sits well inside the chart,
+never flush with the edge. The month axis is bounded by the plot, so no label is
+drawn outside it. Without a weekly grid the range starts exactly at `from`. Weekly gridlines span the whole plot, including
+the part of the first week **before** the range start.
+
+Attributes on a `bar`/`milestone`:
+
+| Attribute | Default | Description |
+|---|---|---|
+| `section="…"` | current `section` | which row the item belongs to |
+| `color=` | section colour | palette name (`slate`,`blue`,`teal`,`green`,`lime`,`amber`,`rose`) or `#hex` |
+| `state=` | `normal` | `normal` · `done` (muted) · `active` (full) · `planned` (ghosted outline) |
+| `note="…"` | *(none)* | dimmed secondary text after the label (e.g. a ticket id) |
+
+```fl
+title "Delivery timeline" "phases and milestones"
+
+timeline "Cassandra migration" from 2026-05-21 to 2026-10-31
+axis month grid week
+marker 2026-05-21 "Start 21 May 2026"
+
+section "Discovery" color=slate
+section "Phase 1"   color=teal
+
+bar "Research"          2026-05-29 -> 2026-06-11 section="Discovery"
+milestone "Epic created" 2026-07-21 section="Discovery" note="NTPSBK18-145"
+bar "Setup Medusa"      2026-09-30 -> 2026-10-15 section="Phase 1" state=active
+```
+
+- A `bar`/`section`/`axis`/`marker` before any `timeline` warns and is ignored.
+- An unknown `section=` warns; `end < start` warns and the dates are swapped.
+- An unknown `axis`/`grid`/`state` value warns and falls back to the default.
+- Colours come from the theme's `timeline` block (see `themes/*.json`).
+
+---
+
 > **Planned instructions:** none yet. See the
 > roadmap in [`openspec/changes/README.md`](../openspec/changes/README.md).
 
