@@ -50,7 +50,6 @@ def _fake_converter(dir_path: Path, name: str = "rsvg-convert") -> Path:
         "#!/bin/sh\n"
         f'printf "%s\\n" "$@" >> "{dir_path}/args.txt"\n'
         # Find the output -o value and write a 1x1 PNG-ish file there.
-        'for ((i=1;i<=$#;i++)); do :; done\n'
         'out=""\n'
         'prev=""\n'
         'for a in "$@"; do\n'
